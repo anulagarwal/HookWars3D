@@ -23,6 +23,8 @@ public class Hook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        //Hook going out
         if (currentState == State.Out)
         {
             if(Vector3.Distance(transform.position, player.position)> distance)
@@ -32,6 +34,7 @@ public class Hook : MonoBehaviour
             }
         }
 
+        //Hook returning back to player empty
         if(currentState== State.In)
         {
             if (Vector3.Distance(transform.position, player.position) <=0.6f)
@@ -42,6 +45,7 @@ public class Hook : MonoBehaviour
             }
         }
 
+        //Pulling player towards wall
         if(currentState == State.Pulled)
         {
             if (Vector3.Distance(transform.position, player.position) <= 0.6f)
@@ -54,6 +58,7 @@ public class Hook : MonoBehaviour
             }
         }
 
+        //Pulling enemy towards player
         if(currentState == State.Pulling)
         {
             if (Vector3.Distance(transform.position, player.position) <= 0.6f)
@@ -66,6 +71,7 @@ public class Hook : MonoBehaviour
         }
     }
 
+    //Throw hook in forward direction
     public void HookNow()
     {
         currentState = State.Out;
@@ -77,6 +83,7 @@ public class Hook : MonoBehaviour
     {
         if (currentState == State.Out)
         {
+            //If touch wall, pull player to wall
             if (collision.gameObject.tag == "Wall")
             {
                 GetComponent<Rigidbody>().velocity = Vector3.zero;
@@ -85,9 +92,10 @@ public class Hook : MonoBehaviour
 
                 currentState = State.Pulled;
             }
+
+            //If touch enemy, pull enemy to player
             if(collision.gameObject.tag == "Enemy")
-            {
-                print("enemy");
+            {            
                 currentState = State.Pulling;
                 GetComponent<Rigidbody>().AddForce(player.forward * -speed * 2, ForceMode.Impulse);
                 collision.gameObject.transform.SetParent(transform);
