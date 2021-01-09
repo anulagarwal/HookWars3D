@@ -7,6 +7,7 @@ public class HookHandler : MonoBehaviour
     #region Properties
     [Header("Attributes")]
     [SerializeField] private float velocity = 0f;
+    [SerializeField] private bool Hit = false;
 
     [Header("Componenet Reference")]
     [SerializeField] private LineRenderer ropeRenderer = null;
@@ -15,9 +16,12 @@ public class HookHandler : MonoBehaviour
     #region MonoBehaviour Functions
     private void Update()
     {
+        if (!Hit)
+        {           
+            transform.Translate(Vector3.forward * Time.deltaTime * velocity, Space.Self);
+        }
         ropeRenderer.SetPosition(0, PlayerCharacterController.Instance.GetHookSpawnPointPosition());
         ropeRenderer.SetPosition(1, transform.position);
-        transform.Translate(Vector3.forward * Time.deltaTime * velocity, Space.Self);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -25,11 +29,13 @@ public class HookHandler : MonoBehaviour
         if (other.gameObject.tag == "Wall")
         {
             PlayerCharacterController.Instance.PlayerCharacterStatus = PlayerStatus.Riding;
-            this.enabled = false;
+            // this.enabled = false;
+            Hit = true;
         }
         else if (other.gameObject.tag == "Player" && PlayerCharacterController.Instance.PlayerCharacterStatus == PlayerStatus.Riding)
         {
             PlayerCharacterController.Instance.ResetPlayer();
+            Destroy(gameObject);
         }
     }
     #endregion
