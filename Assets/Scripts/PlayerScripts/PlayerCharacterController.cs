@@ -20,9 +20,15 @@ public class PlayerCharacterController : MonoBehaviour
     [SerializeField] private GameObject hookPrefab = null;
     [SerializeField] private Transform hookSpawnPoint = null;
 
+    [Header("Ragdoll Setup")]
+    [SerializeField] private float impactForce = 0f;
+    [SerializeField] private GameObject ragdoll = null;
+    [SerializeField] private Rigidbody chestRb = null;
+
     private VariableJoystick hookJoystick = null;
     private Vector3 joystickDirection = Vector3.zero;
     private Transform spawnedHookRef = null;
+    private Transform enemyCaughtTransform = null;
     #endregion
 
     #region MonoBehaviour Functions
@@ -44,14 +50,39 @@ public class PlayerCharacterController : MonoBehaviour
 
     private void Update()
     {
-        if (PlayerCharacterStatus != PlayerStatus.Riding && PlayerCharacterStatus != PlayerStatus.Throw)
+        if (PlayerCharacterStatus != PlayerStatus.CaughtByEnemy)
         {
-            HookDirectionIndication();
-            HookThrowMechanism();
+            if (PlayerCharacterStatus != PlayerStatus.Riding && PlayerCharacterStatus != PlayerStatus.Throw)
+            {
+                HookDirectionIndication();
+                HookThrowMechanism();
+            }
+            else if (PlayerCharacterStatus == PlayerStatus.Riding)
+            {
+                HookRideMechanism();
+            }
         }
-        else if (PlayerCharacterStatus == PlayerStatus.Riding)
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "Enemy" && PlayerCharacterStatus != PlayerStatus.Aiming)
         {
-            HookRideMechanism();
+            ResetPlayer();
+
+            if (enemyCaughtTransform == null)
+            {
+                playerAnimator.SetTrigger("Punch");
+            }
+
+            if (spawnedHookRef)
+            {
+                enemyCaughtTransform = other.gameObject.transform;
+                enemyCaughtTransform.parent = null;
+
+                Destroy(spawnedHookRef.gameObject);
+               // spawnedHookRef.GetComponent<HookHandler>().DamageEnemy();
+            }
         }
     }
     #endregion
@@ -65,9 +96,16 @@ public class PlayerCharacterController : MonoBehaviour
     {
         joystickDirection = new Vector3(hookJoystick.Horizontal, 0, hookJoystick.Vertical).normalized;
 
+        PlayerMovement();
         if (joystickDirection != Vector3.zero)
         {
+            //EnableDirectionIndicatorMeshRenderer(true);
             directionIndicator.rotation = Quaternion.LookRotation(joystickDirection);
+            transform.rotation = Quaternion.LookRotation(joystickDirection);
+        }
+        else
+        {
+            //EnableDirectionIndicatorMeshRenderer(false);
         }
     }
 
@@ -81,6 +119,12 @@ public class PlayerCharacterController : MonoBehaviour
         {
             EnableDirectionIndicatorMeshRenderer(false);
             PlayerCharacterStatus = PlayerStatus.Throw;
+
+            if (PlayerCharacterStatus != PlayerStatus.Aiming)
+            {
+                playerAnimator.SetBool("Run", false);
+            }
+
             playerAnimator.SetTrigger("Throw");
 
             transform.rotation = directionIndicator.rotation;
@@ -93,23 +137,35 @@ public class PlayerCharacterController : MonoBehaviour
         Vector3 direction = (spawnedHookRef.position - transform.position).normalized;
         cc.Move(new Vector3(direction.x, 0f, direction.z) * Time.deltaTime * moveSpeed);
     }
+
+    private void PlayerMovement()
+    {
+        cc.Move(joystickDirection * Time.deltaTime * moveSpeed);
+
+        if (PlayerCharacterStatus == PlayerStatus.Aiming)
+        {
+            playerAnimator.SetBool("Run", true);
+        }
+    }
     #endregion
 
     #region Public Functions
     public void ThrowHook()
     {
         spawnedHookRef = Instantiate(hookPrefab, hookSpawnPoint.position, transform.rotation).transform;
+        spawnedHookRef.GetComponent<HookHandler>().HookOwnerCharacter = HookOwner.Player;
+        spawnedHookRef.GetComponent<HookHandler>().OwnerTransform = transform;
     }
 
     public void ResetPlayer()
     {
         PlayerCharacterStatus = PlayerStatus.Idle;
-        PausePlayerAniamtor(false);
+        PausePlayerAnimator(false);
         EnableDirectionIndicatorMeshRenderer(true);
         LevelUIManager.Instance.EnableHookJoystick(true);
     }
 
-    public void PausePlayerAniamtor(bool value)
+    public void PausePlayerAnimator(bool value)
     {
         if (value)
         {
@@ -124,6 +180,31 @@ public class PlayerCharacterController : MonoBehaviour
     public Vector3 GetHookSpawnPointPosition()
     {
         return hookSpawnPoint.position;
+    }
+
+    public void Attack()
+    {
+        playerAnimator.SetTrigger("Punch");
+    }
+
+    public void KillEnemyCaught()
+    {
+        if (enemyCaughtTransform)
+        {
+            enemyCaughtTransform.GetComponent<EnemyController>().EnableRagdoll(true);
+            enemyCaughtTransform.GetComponent<EnemyController>().ApplyImpactForce((enemyCaughtTransform.position - transform.position).normalized);
+        }
+    }
+
+    public void EnableRagdoll(bool value)
+    {
+        playerAnimator.enabled = !value;
+        ragdoll.SetActive(value);
+    }
+
+    public void ApplyImpactForce(Vector3 impactDirection)
+    {
+        chestRb.AddForce(impactDirection * impactForce, ForceMode.Impulse);
     }
     #endregion
 

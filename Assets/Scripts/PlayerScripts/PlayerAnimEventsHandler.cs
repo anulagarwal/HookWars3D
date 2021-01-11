@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAnimEventHandler : MonoBehaviour
+public class PlayerAnimEventsHandler : MonoBehaviour
 {
     #region Properties
     [Header("Component Reference")]
@@ -16,8 +16,13 @@ public class PlayerAnimEventHandler : MonoBehaviour
     private void AnimEvent_ThrowHook()
     {
         EnableHookSkinnedMeshRenderer(false);
-        PlayerCharacterController.Instance.PausePlayerAniamtor(true);
+        PlayerCharacterController.Instance.PausePlayerAnimator(true);
         PlayerCharacterController.Instance.ThrowHook();
+    }
+
+    private void AnimEvent_Punch()
+    {
+        PlayerCharacterController.Instance.KillEnemyCaught();
     }
     #endregion
 
