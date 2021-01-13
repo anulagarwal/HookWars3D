@@ -22,11 +22,12 @@ public class HookHandler : MonoBehaviour
     {
         enemyCaught = false;
         playerCaught = false;
+        ForceStop = false;
     }
 
     private void Update()
     {
-        if (!Hit)
+        if (!Hit && !ForceStop)
         {
             transform.Translate(Vector3.forward * Time.deltaTime * velocity, Space.Self);
         }
@@ -34,6 +35,10 @@ public class HookHandler : MonoBehaviour
         if (HookOwnerCharacter == HookOwner.Player)
         {
             if (enemyCaught)
+            {
+                transform.Translate(-Vector3.forward * Time.deltaTime * velocity, Space.Self);
+            }
+            else if (ForceStop)
             {
                 transform.Translate(-Vector3.forward * Time.deltaTime * velocity, Space.Self);
             }
@@ -55,22 +60,34 @@ public class HookHandler : MonoBehaviour
             if (playerCaught)
             {
                 transform.Translate(-Vector3.forward * Time.deltaTime * velocity, Space.Self);
+                
+                if (Vector3.Distance(transform.position, OwnerTransform.position) <= 1.5f)
+                {
+                    PlayerCharacterController.Instance.ResetPlayer();
+                    PlayerCharacterController.Instance.transform.parent = null;
+                    OwnerTransform.GetComponent<EnemyController>().PauseEnemyAnimator(false);
+                    OwnerTransform.GetComponent<EnemyController>().Attack();
+                    if (Hit)
+                    {
+                        Destroy(gameObject);
+                    }
+                }
+            }
+            else if (ForceStop)
+            {
+                transform.Translate(-Vector3.forward * Time.deltaTime * velocity, Space.Self);
+
+                if (Vector3.Distance(transform.position, OwnerTransform.position) <= 1.5f)
+                {
+                    OwnerTransform.GetComponent<EnemyController>().PauseEnemyAnimator(false);
+                    OwnerTransform.GetComponent<EnemyController>().SpawnedHookRef = null;
+                    OwnerTransform.GetComponent<EnemyController>().EnemyCharacterStatus = EnemyStatus.Walking;
+                    Destroy(gameObject);
+                }
             }
 
             ropeRenderer.SetPosition(0, OwnerTransform.GetComponent<EnemyController>().GetHookSpawnPointPosition());
             ropeRenderer.SetPosition(1, transform.position);
-
-            if (Vector3.Distance(transform.position, OwnerTransform.position) <= 1.5f)
-            {
-                PlayerCharacterController.Instance.ResetPlayer();
-                PlayerCharacterController.Instance.transform.parent = null;
-                OwnerTransform.GetComponent<EnemyController>().PauseEnemyAnimator(false);
-                OwnerTransform.GetComponent<EnemyController>().Attack();
-                if (Hit)
-                {
-                    Destroy(gameObject);
-                }
-            }
         }
     }
 
@@ -78,9 +95,16 @@ public class HookHandler : MonoBehaviour
     {
         if (other.gameObject.tag == "Wall")
         {
-            PlayerCharacterController.Instance.PlayerCharacterStatus = PlayerStatus.Riding;
-            // this.enabled = false;
-            Hit = true;
+            if (HookOwnerCharacter == HookOwner.Player)
+            {
+                PlayerCharacterController.Instance.PlayerCharacterStatus = PlayerStatus.Riding;
+                // this.enabled = false;
+                Hit = true;
+            }
+            else if(HookOwnerCharacter == HookOwner.Enemy)
+            {
+                ForceStop = true;
+            }
         }
         else if(other.gameObject.tag == "Enemy" && HookOwnerCharacter == HookOwner.Player)
         {
@@ -104,5 +128,7 @@ public class HookHandler : MonoBehaviour
     public HookOwner HookOwnerCharacter { get; set; }
 
     public Transform OwnerTransform { get; set; }
+
+    public bool ForceStop { get; set; }
     #endregion
 }

@@ -29,7 +29,6 @@ public class EnemyController : MonoBehaviour
 
     private Transform spawnedHookRef = null;
     private Transform targetPoint = null;
-    private EnemyStatus EnemyCharacterStatus = EnemyStatus.Walking;
     #endregion
 
     #region Delegates
@@ -75,7 +74,7 @@ public class EnemyController : MonoBehaviour
 
             EnemyRotation();
 
-            if (eyeSightHandler.PlayerCaught)
+            if (eyeSightHandler.PlayerCaught && EnemyCharacterStatus != EnemyStatus.Throw)
             {
                 Vector3 rotDirection = PlayerCharacterController.Instance.transform.position - transform.position;
                 transform.rotation = Quaternion.LookRotation(rotDirection);
@@ -90,7 +89,7 @@ public class EnemyController : MonoBehaviour
 
     private void StandingAIMechanism()
     {
-        if (eyeSightHandler.PlayerCaught)
+        if (eyeSightHandler.PlayerCaught && EnemyCharacterStatus != EnemyStatus.Throw)
         {
             Vector3 rotDirection = PlayerCharacterController.Instance.transform.position - transform.position;
             transform.rotation = Quaternion.LookRotation(rotDirection);
@@ -117,9 +116,12 @@ public class EnemyController : MonoBehaviour
     #region Public Functions
     public void ThrowHook()
     {
-        spawnedHookRef = Instantiate(hookPrefab, hookSpawnPoint.position, transform.rotation).transform;
-        spawnedHookRef.GetComponent<HookHandler>().HookOwnerCharacter = HookOwner.Enemy;
-        spawnedHookRef.GetComponent<HookHandler>().OwnerTransform = transform;
+        if (spawnedHookRef == null)
+        {
+            spawnedHookRef = Instantiate(hookPrefab, hookSpawnPoint.position, transform.rotation).transform;
+            spawnedHookRef.GetComponent<HookHandler>().HookOwnerCharacter = HookOwner.Enemy;
+            spawnedHookRef.GetComponent<HookHandler>().OwnerTransform = transform;
+        }
     }
 
     public void EnableRagdoll(bool value)
@@ -158,6 +160,10 @@ public class EnemyController : MonoBehaviour
     #endregion
 
     #region Getter And Setter
+    public EnemyStatus EnemyCharacterStatus { get; set; }
+
     public Transform PlayerCaughtTransform { get; set; }
+
+    public Transform SpawnedHookRef { get => spawnedHookRef; set => spawnedHookRef = value; }
     #endregion
 }

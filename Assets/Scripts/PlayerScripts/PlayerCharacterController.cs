@@ -9,6 +9,8 @@ public class PlayerCharacterController : MonoBehaviour
 
     [Header("Attributes")]
     [SerializeField] private float moveSpeed = 0f;
+    [SerializeField] private float ridingSpeed = 0f;
+    [SerializeField] private float hookRange = 0f;
 
     [Header("Component Reference")]
     [SerializeField] private CharacterController cc = null;
@@ -62,6 +64,14 @@ public class PlayerCharacterController : MonoBehaviour
                 HookRideMechanism();
             }
         }
+
+        if (spawnedHookRef)
+        {
+            if(Vector3.Distance(transform.position,spawnedHookRef.position) >= hookRange)
+            {
+                spawnedHookRef.GetComponent<HookHandler>().ForceStop = true;
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -89,6 +99,8 @@ public class PlayerCharacterController : MonoBehaviour
 
     #region Getter And Setter
     public PlayerStatus PlayerCharacterStatus { get; set; }
+
+    public float HookRange { get => hookRange; }
     #endregion
 
     #region Core Functions
@@ -96,7 +108,7 @@ public class PlayerCharacterController : MonoBehaviour
     {
         joystickDirection = new Vector3(hookJoystick.Horizontal, 0, hookJoystick.Vertical).normalized;
 
-        PlayerMovement();
+        //PlayerMovement();
         if (joystickDirection != Vector3.zero)
         {
             //EnableDirectionIndicatorMeshRenderer(true);
@@ -134,8 +146,11 @@ public class PlayerCharacterController : MonoBehaviour
 
     private void HookRideMechanism()
     {
-        Vector3 direction = (spawnedHookRef.position - transform.position).normalized;
-        cc.Move(new Vector3(direction.x, 0f, direction.z) * Time.deltaTime * moveSpeed);
+        if (spawnedHookRef)
+        {
+            Vector3 direction = (spawnedHookRef.position - transform.position).normalized;
+            cc.Move(new Vector3(direction.x, 0f, direction.z) * Time.deltaTime * ridingSpeed);
+        }
     }
 
     private void PlayerMovement()
@@ -212,6 +227,14 @@ public class PlayerCharacterController : MonoBehaviour
     private void EnableDirectionIndicatorMeshRenderer(bool value)
     {
         directionIndicatorMeshRenderer.enabled = value;
+    }
+    #endregion
+
+    #region Gizmos Functions
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, hookRange);
     }
     #endregion
 }

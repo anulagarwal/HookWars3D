@@ -12,7 +12,10 @@ public class EyeSightHandler : MonoBehaviour
     {
         if(other.gameObject.tag == "Player")
         {
-            PlayerCaught = true;
+            if (!PlayerCaught)
+            {
+                PlayerCaught = true;
+            }
         }
     }
 
