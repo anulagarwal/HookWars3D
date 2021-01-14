@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class HookHandler : MonoBehaviour
 {
@@ -65,8 +66,9 @@ public class HookHandler : MonoBehaviour
             if (playerCaught)
             {
                 transform.Translate(-Vector3.forward * Time.deltaTime * velocity, Space.Self);
-                
-                if (Vector3.Distance(transform.position, OwnerTransform.position) <= 0.65f)
+
+                //print(Vector3.Distance(transform.position, OwnerTransform.position));
+                if (Vector3.Distance(transform.position, OwnerTransform.position) <= 1.2f)
                 {
                     PlayerCharacterController.Instance.ResetPlayer();
                     PlayerCharacterController.Instance.transform.parent = null;
@@ -116,6 +118,7 @@ public class HookHandler : MonoBehaviour
             Hit = true;
             enemyCaught = true;
             enemyCaughtTransform = other.gameObject.transform;
+            enemyCaughtTransform.GetComponent<NavMeshAgent>().isStopped = true;
             enemyCaughtTransform.GetComponent<EnemyController>().enabled = false;
             enemyCaughtTransform.parent = transform;
         }

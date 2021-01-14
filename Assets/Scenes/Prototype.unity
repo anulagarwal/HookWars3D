@@ -2073,7 +2073,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 694fa89d2752a0f45b08b643daf6f31a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyType: 0
+  enemyType: 1
   impactForce: 80
   chestRb: {fileID: 5680486696469542960}
   aiAgent: {fileID: 919132148916419493}

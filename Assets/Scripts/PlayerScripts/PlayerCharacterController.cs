@@ -223,9 +223,11 @@ public class PlayerCharacterController : MonoBehaviour
     {
         playerAnimator.enabled = !value;
         ragdoll.SetActive(value);
-        
-        if(value)
-        GameManager.Instance.LoseLevel();
+
+        if (value)
+        {
+            GameManager.Instance.LoseLevel();
+        }
 
     }
 
