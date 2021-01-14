@@ -1,13 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
 
     public enum State {  MainMenu, InGame, Win, Lose};
     public State currentState;
-
+    public int currentLevel;
     private static GameManager _instance;
 
     public static GameManager Instance { get { return _instance; } }
@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         ChangeState(State.MainMenu);
+        currentLevel = PlayerPrefs.GetInt("level", 0);
     }
 
     // Update is called once per frame
@@ -51,7 +52,10 @@ public class GameManager : MonoBehaviour
     }
     public void WinLevel()
     {
+        currentLevel++;
+        PlayerPrefs.SetInt("level", currentLevel);
         ChangeState(State.Win);
+
     }
 
     public void LoseLevel()
@@ -62,5 +66,10 @@ public class GameManager : MonoBehaviour
     {
         currentState = state;
         UIManager.Instance.UpdateState(state);
+    }
+
+    public void RestartLevel()
+    {
+        SceneManager.LoadScene("Game");
     }
 }

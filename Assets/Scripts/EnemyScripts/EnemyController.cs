@@ -129,6 +129,7 @@ public class EnemyController : MonoBehaviour
         ragdoll.SetActive(value);
         enemyAnimator.enabled = !value;
         capsuleCollider.enabled = !value;
+        eyeSightHandler.gameObject.SetActive(false);
     }
 
     public void ApplyImpactForce(Vector3 impactDirection)

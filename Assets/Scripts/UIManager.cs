@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class UIManager : MonoBehaviour
 {
@@ -8,7 +10,7 @@ public class UIManager : MonoBehaviour
     public GameObject InGame;
     public GameObject Win;
     public GameObject Lose;
-
+    public Text mainLevel;
     private static UIManager _instance;
 
     public static UIManager Instance { get { return _instance; } }
@@ -37,6 +39,11 @@ public class UIManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void UpdateLevelText(int level)
+    {
+        mainLevel.text = "LEVEL " + level;
     }
 
     public void UpdateState(GameManager.State state)

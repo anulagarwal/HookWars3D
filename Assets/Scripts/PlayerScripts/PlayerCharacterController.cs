@@ -27,7 +27,7 @@ public class PlayerCharacterController : MonoBehaviour
     [SerializeField] private GameObject ragdoll = null;
     [SerializeField] private Rigidbody chestRb = null;
 
-    private VariableJoystick hookJoystick = null;
+    [SerializeField] private VariableJoystick hookJoystick = null;
     private Vector3 joystickDirection = Vector3.zero;
     private Transform spawnedHookRef = null;
     private Transform enemyCaughtTransform = null;
@@ -47,7 +47,7 @@ public class PlayerCharacterController : MonoBehaviour
     private void Start()
     {
         PlayerCharacterStatus = PlayerStatus.Idle;
-        hookJoystick = FindObjectOfType<VariableJoystick>();
+        //hookJoystick = FindObjectOfType<VariableJoystick>();
     }
 
     private void Update()
@@ -94,6 +94,10 @@ public class PlayerCharacterController : MonoBehaviour
                // spawnedHookRef.GetComponent<HookHandler>().DamageEnemy();
             }
         }
+        if (other.gameObject.tag == "Objective")
+        {
+            GameManager.Instance.WinLevel();
+        }
     }
     #endregion
 
@@ -108,7 +112,7 @@ public class PlayerCharacterController : MonoBehaviour
     {
         joystickDirection = new Vector3(hookJoystick.Horizontal, 0, hookJoystick.Vertical).normalized;
 
-        //PlayerMovement();
+       // PlayerMovement();
         if (joystickDirection != Vector3.zero)
         {
             //EnableDirectionIndicatorMeshRenderer(true);
@@ -155,11 +159,15 @@ public class PlayerCharacterController : MonoBehaviour
 
     private void PlayerMovement()
     {
-        cc.Move(joystickDirection * Time.deltaTime * moveSpeed);
-
-        if (PlayerCharacterStatus == PlayerStatus.Aiming)
+        print(joystickDirection);
+        if (Mathf.Abs(hookJoystick.Horizontal) > 0.3f || Mathf.Abs(hookJoystick.Vertical) > 0.3f)
         {
-            playerAnimator.SetBool("Run", true);
+            cc.Move(joystickDirection * Time.deltaTime * moveSpeed);
+
+            if (PlayerCharacterStatus == PlayerStatus.Aiming)
+            {
+                playerAnimator.SetBool("Run", true);
+            }
         }
     }
     #endregion
@@ -215,6 +223,10 @@ public class PlayerCharacterController : MonoBehaviour
     {
         playerAnimator.enabled = !value;
         ragdoll.SetActive(value);
+        
+        if(value)
+        GameManager.Instance.LoseLevel();
+
     }
 
     public void ApplyImpactForce(Vector3 impactDirection)
