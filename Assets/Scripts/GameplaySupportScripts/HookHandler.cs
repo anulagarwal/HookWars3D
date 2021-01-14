@@ -54,6 +54,11 @@ public class HookHandler : MonoBehaviour
                     Destroy(gameObject);
                 }
             }
+            else if(Vector3.Distance(transform.position, PlayerCharacterController.Instance.transform.position) <= 1.5f && ForceStop)
+            {
+                PlayerCharacterController.Instance.ResetPlayer();
+                Destroy(gameObject);
+            }
         }
         else if(HookOwnerCharacter == HookOwner.Enemy)
         {
@@ -61,7 +66,7 @@ public class HookHandler : MonoBehaviour
             {
                 transform.Translate(-Vector3.forward * Time.deltaTime * velocity, Space.Self);
                 
-                if (Vector3.Distance(transform.position, OwnerTransform.position) <= 1.5f)
+                if (Vector3.Distance(transform.position, OwnerTransform.position) <= 0.65f)
                 {
                     PlayerCharacterController.Instance.ResetPlayer();
                     PlayerCharacterController.Instance.transform.parent = null;
@@ -77,7 +82,7 @@ public class HookHandler : MonoBehaviour
             {
                 transform.Translate(-Vector3.forward * Time.deltaTime * velocity, Space.Self);
 
-                if (Vector3.Distance(transform.position, OwnerTransform.position) <= 1.5f)
+                if (Vector3.Distance(transform.position, OwnerTransform.position) <= 0.65f)
                 {
                     OwnerTransform.GetComponent<EnemyController>().PauseEnemyAnimator(false);
                     OwnerTransform.GetComponent<EnemyController>().SpawnedHookRef = null;
