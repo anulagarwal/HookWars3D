@@ -111,6 +111,7 @@ public class HookHandler : MonoBehaviour
             Hit = true;
             enemyCaught = true;
             enemyCaughtTransform = other.gameObject.transform;
+            enemyCaughtTransform.GetComponent<EnemyController>().enabled = false;
             enemyCaughtTransform.parent = transform;
         }
         else if(other.gameObject.tag == "Player" && HookOwnerCharacter == HookOwner.Enemy)
