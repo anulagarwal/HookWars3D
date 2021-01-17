@@ -80,7 +80,7 @@ public class PlayerCharacterController : MonoBehaviour
         {
             ResetPlayer();
 
-            if (enemyCaughtTransform == null)
+            if (enemyCaughtTransform != null)
             {
                 playerAnimator.SetTrigger("Punch");
             }
