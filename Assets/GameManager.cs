@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
     {
         ChangeState(State.MainMenu);
         currentLevel = PlayerPrefs.GetInt("level", 0);
+        UIManager.Instance.UpdateLevelText(currentLevel);
     }
 
     // Update is called once per frame
@@ -55,7 +56,6 @@ public class GameManager : MonoBehaviour
         currentLevel++;
         PlayerPrefs.SetInt("level", currentLevel);
         ChangeState(State.Win);
-
     }
 
     public void LoseLevel()

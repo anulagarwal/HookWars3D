@@ -47,7 +47,7 @@ public class HookHandler : MonoBehaviour
             ropeRenderer.SetPosition(0, PlayerCharacterController.Instance.GetHookSpawnPointPosition());
             ropeRenderer.SetPosition(1, transform.position);
 
-            if (Vector3.Distance(transform.position, PlayerCharacterController.Instance.transform.position) <= 1.5f && PlayerCharacterController.Instance.PlayerCharacterStatus == PlayerStatus.Riding)
+            if (Vector3.Distance(transform.position, PlayerCharacterController.Instance.transform.position) <= 0.9f && PlayerCharacterController.Instance.PlayerCharacterStatus == PlayerStatus.Riding)
             {
                 PlayerCharacterController.Instance.ResetPlayer();
                 if (Hit)

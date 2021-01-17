@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class SceneChanger : MonoBehaviour
 {
-    int currentLevel;
+    public int currentLevel;
     public int maximumLevels;
     // Start is called before the first frame update
     void Start()
@@ -16,7 +16,7 @@ public class SceneChanger : MonoBehaviour
         }
         else
         {
-            SceneManager.LoadScene("Prototype " + (currentLevel++));
+            SceneManager.LoadScene("Prototype " + (currentLevel+1));
         }
     }
 
