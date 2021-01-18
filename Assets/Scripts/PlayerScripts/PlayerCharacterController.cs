@@ -73,7 +73,7 @@ public class PlayerCharacterController : MonoBehaviour
             }
         }
     }
-
+   
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "Enemy" && PlayerCharacterStatus != PlayerStatus.Aiming)
@@ -94,6 +94,7 @@ public class PlayerCharacterController : MonoBehaviour
                // spawnedHookRef.GetComponent<HookHandler>().DamageEnemy();
             }
         }
+
         if (other.gameObject.tag == "Objective")
         {
             GameManager.Instance.WinLevel();

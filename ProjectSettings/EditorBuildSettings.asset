@@ -21,6 +21,9 @@ EditorBuildSettings:
     path: Assets/Scenes/All Level/Prototype 4.unity
     guid: 12970622d80994fc09a6525728acced9
   - enabled: 1
+    path: Assets/Scenes/All Level/Prototype 1.unity
+    guid: 3c63e1d729d7143a8965658431dd0faa
+  - enabled: 1
     path: Assets/Scenes/All Level/Prototype 5.unity
     guid: ba105ca67687f4a4f87097e3622db3af
   - enabled: 1
@@ -32,9 +35,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/All Level/Prototype 0.unity
     guid: 0e82f0fadebc74cddb12600052a01b72
-  - enabled: 1
-    path: Assets/Scenes/All Level/Prototype 1.unity
-    guid: 7b773213c189c4df195a18a6e6e36c86
   - enabled: 1
     path: Assets/Scenes/All Level/Prototype 2.unity
     guid: 3fdf8c5a33bdb4f20858371109d760dd

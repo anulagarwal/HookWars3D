@@ -15,7 +15,12 @@ public class HookHandler : MonoBehaviour
 
     private bool enemyCaught = false;
     private bool playerCaught = false;
+    //Added
+    private bool objectCaught = false;
     private Transform enemyCaughtTransform = null;
+
+    //Added
+    private Transform objectCaughtTransform = null;
     #endregion
 
     #region MonoBehaviour Functions
@@ -35,10 +40,11 @@ public class HookHandler : MonoBehaviour
 
         if (HookOwnerCharacter == HookOwner.Player)
         {
-            if (enemyCaught)
+            if (enemyCaught || objectCaught)
             {
                 transform.Translate(-Vector3.forward * Time.deltaTime * velocity, Space.Self);
             }
+           
             else if (ForceStop)
             {
                 transform.Translate(-Vector3.forward * Time.deltaTime * velocity, Space.Self);
@@ -49,14 +55,24 @@ public class HookHandler : MonoBehaviour
 
             if (Vector3.Distance(transform.position, PlayerCharacterController.Instance.transform.position) <= 0.9f && PlayerCharacterController.Instance.PlayerCharacterStatus == PlayerStatus.Riding)
             {
-                PlayerCharacterController.Instance.ResetPlayer();
                 if (Hit)
                 {
+                  
+                    PlayerCharacterController.Instance.ResetPlayer();
+
                     Destroy(gameObject);
                 }
             }
             else if(Vector3.Distance(transform.position, PlayerCharacterController.Instance.transform.position) <= 1.5f && ForceStop)
             {
+
+                //Added here
+                if (objectCaught)
+                {
+                    objectCaughtTransform.parent = null;
+                    objectCaughtTransform.GetComponent<BoxCollider>().enabled = false;
+                    objectCaught = false;
+                }
                 PlayerCharacterController.Instance.ResetPlayer();
                 Destroy(gameObject);
             }
@@ -129,6 +145,16 @@ public class HookHandler : MonoBehaviour
             OwnerTransform.GetComponent<EnemyController>().PlayerCaughtTransform = other.gameObject.transform;
             PlayerCharacterController.Instance.transform.parent = transform;
             PlayerCharacterController.Instance.PlayerCharacterStatus = PlayerStatus.CaughtByEnemy;
+        }
+
+        //Added here
+        else if(other.gameObject.tag=="Hookable" && HookOwnerCharacter == HookOwner.Player)
+        {
+            Hit = true;
+
+            other.gameObject.transform.parent = transform;
+            objectCaught = true;
+            objectCaughtTransform = other.gameObject.transform;
         }
     }
     #endregion
