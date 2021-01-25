@@ -16,7 +16,7 @@ public class SceneChanger : MonoBehaviour
         }
         else
         {
-            SceneManager.LoadScene("Prototype " + (currentLevel+1));
+            SceneManager.LoadScene("Level " + (currentLevel +1 ));
         }
     }
 

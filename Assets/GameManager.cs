@@ -53,9 +53,12 @@ public class GameManager : MonoBehaviour
     }
     public void WinLevel()
     {
-        currentLevel++;
-        PlayerPrefs.SetInt("level", currentLevel);
-        ChangeState(State.Win);
+        if (currentState != State.Win)
+        {
+            currentLevel++;
+            PlayerPrefs.SetInt("level", currentLevel);
+            ChangeState(State.Win);
+        }
     }
 
     public void LoseLevel()

@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
     public GameObject InGame;
     public GameObject Win;
     public GameObject Lose;
+    public GameObject awesomeText;
     public Text mainLevel;
     private static UIManager _instance;
 
@@ -46,6 +47,11 @@ public class UIManager : MonoBehaviour
         mainLevel.text = "LEVEL " + level;
     }
 
+    public void SpawnAwesomeText(string s , Vector3 pos)
+    {
+        GameObject g = Instantiate(awesomeText, pos, Quaternion.identity);
+        g.GetComponent<AwesomeText>().SetText(s);
+    }
     public void UpdateState(GameManager.State state)
     {
 

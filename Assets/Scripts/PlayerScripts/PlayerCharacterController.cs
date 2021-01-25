@@ -54,6 +54,8 @@ public class PlayerCharacterController : MonoBehaviour
     {
         if (PlayerCharacterStatus != PlayerStatus.CaughtByEnemy)
         {
+           
+
             if (PlayerCharacterStatus != PlayerStatus.Riding && PlayerCharacterStatus != PlayerStatus.Throw)
             {
                 HookDirectionIndication();
@@ -70,6 +72,15 @@ public class PlayerCharacterController : MonoBehaviour
             if(Vector3.Distance(transform.position,spawnedHookRef.position) >= hookRange)
             {
                 spawnedHookRef.GetComponent<HookHandler>().ForceStop = true;
+                RaycastHit hit;                
+                // to see if any enemy is in the radius when hook comes back
+
+                if (Physics.SphereCast(spawnedHookRef.position, 10, Vector3.zero, out hit, 1))
+                {
+                    print("enemmm");
+
+                    
+                }
             }
         }
     }

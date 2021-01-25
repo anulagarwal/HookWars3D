@@ -55,6 +55,7 @@ public class HookHandler : MonoBehaviour
 
             if (Vector3.Distance(transform.position, PlayerCharacterController.Instance.transform.position) <= 0.9f && PlayerCharacterController.Instance.PlayerCharacterStatus == PlayerStatus.Riding)
             {
+
                 if (Hit)
                 {
                   
@@ -63,9 +64,12 @@ public class HookHandler : MonoBehaviour
                     Destroy(gameObject);
                 }
             }
-            else if(Vector3.Distance(transform.position, PlayerCharacterController.Instance.transform.position) <= 1.5f && ForceStop)
+            else if(Vector3.Distance(transform.position, PlayerCharacterController.Instance.transform.position) <= 1.1f && ForceStop)
             {
 
+              
+                print("pla");
+                PlayerCharacterController.Instance.ResetPlayer();
                 //Added here
                 if (objectCaught)
                 {
@@ -73,7 +77,6 @@ public class HookHandler : MonoBehaviour
                     objectCaughtTransform.GetComponent<BoxCollider>().enabled = false;
                     objectCaught = false;
                 }
-                PlayerCharacterController.Instance.ResetPlayer();
                 Destroy(gameObject);
             }
         }
@@ -137,6 +140,7 @@ public class HookHandler : MonoBehaviour
             enemyCaughtTransform.GetComponent<NavMeshAgent>().isStopped = true;
             enemyCaughtTransform.GetComponent<EnemyController>().enabled = false;
             enemyCaughtTransform.parent = transform;
+            UIManager.Instance.SpawnAwesomeText("AWESOME!", transform.position);
         }
         else if(other.gameObject.tag == "Player" && HookOwnerCharacter == HookOwner.Enemy)
         {
@@ -151,10 +155,12 @@ public class HookHandler : MonoBehaviour
         else if(other.gameObject.tag=="Hookable" && HookOwnerCharacter == HookOwner.Player)
         {
             Hit = true;
+            ForceStop = true;
 
-            other.gameObject.transform.parent = transform;
             objectCaught = true;
             objectCaughtTransform = other.gameObject.transform;
+            other.gameObject.transform.parent = transform;
+            
         }
     }
     #endregion
