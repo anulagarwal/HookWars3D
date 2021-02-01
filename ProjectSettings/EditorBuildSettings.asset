@@ -9,32 +9,11 @@ EditorBuildSettings:
     path: Assets/Scenes/All Level/Game.unity
     guid: 0c98d198ae25c4adaaac0a4ee61ec06f
   - enabled: 1
-    path: Assets/Scenes/All Level/0.unity
-    guid: f01388f3c3a8d4c9f956f7c26a75f46c
-  - enabled: 1
-    path: Assets/Scenes/All Level/2.unity
-    guid: 68eefa3a8a22644c492fe809067b68d0
-  - enabled: 1
-    path: Assets/Scenes/All Level/Prototype 3.unity
-    guid: 7d532e28b51c04e26a2c8818c9b4d96d
-  - enabled: 1
     path: Assets/Scenes/All Level/Levels for videos/Level 3.unity
     guid: 12970622d80994fc09a6525728acced9
   - enabled: 1
-    path: Assets/Scenes/All Level/Prototype 1.unity
-    guid: 3c63e1d729d7143a8965658431dd0faa
-  - enabled: 1
-    path: Assets/Scenes/All Level/Prototype 5.unity
-    guid: ba105ca67687f4a4f87097e3622db3af
-  - enabled: 1
     path: Assets/Scenes/All Level/Levels for videos/Level 4.unity
     guid: 6ee40de38f84c48c4982e3653328f944
-  - enabled: 1
-    path: Assets/Scenes/All Level/L.unity
-    guid: ec26cd3cc43534db4a0d343503d1ed87
-  - enabled: 1
-    path: Assets/Scenes/All Level/1.unity
-    guid: f0bc8f591e3cc4fccae73ef97c7821fe
   - enabled: 1
     path: Assets/Scenes/All Level/Levels for videos/Level 1.unity
     guid: 0e82f0fadebc74cddb12600052a01b72

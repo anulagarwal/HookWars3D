@@ -53,22 +53,18 @@ public class HookHandler : MonoBehaviour
             ropeRenderer.SetPosition(0, PlayerCharacterController.Instance.GetHookSpawnPointPosition());
             ropeRenderer.SetPosition(1, transform.position);
 
-            if (Vector3.Distance(transform.position, PlayerCharacterController.Instance.transform.position) <= 0.9f && PlayerCharacterController.Instance.PlayerCharacterStatus == PlayerStatus.Riding)
+            if (Vector3.Distance(transform.position, PlayerCharacterController.Instance.transform.position) <= 1.2f && PlayerCharacterController.Instance.PlayerCharacterStatus == PlayerStatus.Riding)
             {
-
                 if (Hit)
-                {
-                  
+                {                  
                     PlayerCharacterController.Instance.ResetPlayer();
 
                     Destroy(gameObject);
                 }
             }
-            else if(Vector3.Distance(transform.position, PlayerCharacterController.Instance.transform.position) <= 1.1f && ForceStop)
+            else if(Vector3.Distance(transform.position, PlayerCharacterController.Instance.transform.position) <= 1.5f && ForceStop)
             {
 
-              
-                print("pla");
                 PlayerCharacterController.Instance.ResetPlayer();
                 //Added here
                 if (objectCaught)
@@ -103,7 +99,7 @@ public class HookHandler : MonoBehaviour
             {
                 transform.Translate(-Vector3.forward * Time.deltaTime * velocity, Space.Self);
 
-                if (Vector3.Distance(transform.position, OwnerTransform.position) <= 0.65f)
+                if (Vector3.Distance(transform.position, OwnerTransform.position) <= 1f)
                 {
                     OwnerTransform.GetComponent<EnemyController>().PauseEnemyAnimator(false);
                     OwnerTransform.GetComponent<EnemyController>().SpawnedHookRef = null;
@@ -149,6 +145,7 @@ public class HookHandler : MonoBehaviour
             OwnerTransform.GetComponent<EnemyController>().PlayerCaughtTransform = other.gameObject.transform;
             PlayerCharacterController.Instance.transform.parent = transform;
             PlayerCharacterController.Instance.PlayerCharacterStatus = PlayerStatus.CaughtByEnemy;
+            GetComponent<BoxCollider>().size = new Vector3(0.5f, GetComponent<BoxCollider>().size.y, GetComponent<BoxCollider>().size.z);
         }
 
         //Added here

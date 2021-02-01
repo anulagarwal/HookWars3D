@@ -127,7 +127,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 0.4
+  bundleVersion: 0.6
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -150,7 +150,7 @@ PlayerSettings:
     iPhone: com.anul.hook
   buildNumber:
     Standalone: 0
-    iPhone: 4
+    iPhone: 6
     tvOS: 0
   overrideDefaultApplicationIdentifier: 1
   AndroidBundleVersionCode: 1
@@ -258,7 +258,14 @@ PlayerSettings:
   AndroidMinifyDebug: 0
   AndroidValidateAppBundleSize: 1
   AndroidAppBundleSizeToValidate: 100
-  m_BuildTargetIcons: []
+  m_BuildTargetIcons:
+  - m_BuildTarget: 
+    m_Icons:
+    - serializedVersion: 2
+      m_Icon: {fileID: 2800000, guid: 53c1c71b19b2a434e80e4df039468b94, type: 3}
+      m_Width: 128
+      m_Height: 128
+      m_Kind: 0
   m_BuildTargetPlatformIcons:
   - m_BuildTarget: Android
     m_Icons:
@@ -445,7 +452,7 @@ PlayerSettings:
       m_Kind: 2
       m_SubKind: iPad
     - m_Textures:
-      - {fileID: 2800000, guid: 25373c960ffce4cedb902a6e0d4a6c7c, type: 3}
+      - {fileID: 2800000, guid: 53c1c71b19b2a434e80e4df039468b94, type: 3}
       m_Width: 1024
       m_Height: 1024
       m_Kind: 4
@@ -777,7 +784,7 @@ PlayerSettings:
     7: 
   additionalCompilerArguments: {}
   platformArchitecture:
-    iPhone: 1
+    iPhone: 2
   scriptingBackend:
     Android: 1
     Standalone: 0

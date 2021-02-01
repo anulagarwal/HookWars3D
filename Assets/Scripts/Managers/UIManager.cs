@@ -49,8 +49,8 @@ public class UIManager : MonoBehaviour
 
     public void SpawnAwesomeText(string s , Vector3 pos)
     {
-        GameObject g = Instantiate(awesomeText, pos, Quaternion.identity);
-        g.GetComponent<AwesomeText>().SetText(s);
+//        GameObject g = Instantiate(awesomeText, pos, Quaternion.identity);
+//        g.GetComponent<AwesomeText>().SetText(s);
     }
     public void UpdateState(GameManager.State state)
     {

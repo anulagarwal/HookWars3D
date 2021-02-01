@@ -130,6 +130,7 @@ public class EnemyController : MonoBehaviour
         enemyAnimator.enabled = !value;
         capsuleCollider.enabled = !value;
         eyeSightHandler.gameObject.SetActive(false);
+      
         this.enabled = false;
     }
 

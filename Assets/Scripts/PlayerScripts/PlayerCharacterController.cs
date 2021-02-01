@@ -29,8 +29,8 @@ public class PlayerCharacterController : MonoBehaviour
 
     [SerializeField] private VariableJoystick hookJoystick = null;
     private Vector3 joystickDirection = Vector3.zero;
-    private Transform spawnedHookRef = null;
-    private Transform enemyCaughtTransform = null;
+    [SerializeField] private Transform spawnedHookRef = null;
+    [SerializeField] private Transform enemyCaughtTransform = null;
     #endregion
 
     #region MonoBehaviour Functions
@@ -52,6 +52,7 @@ public class PlayerCharacterController : MonoBehaviour
 
     private void Update()
     {
+        print(PlayerCharacterStatus);
         if (PlayerCharacterStatus != PlayerStatus.CaughtByEnemy)
         {
            
@@ -72,15 +73,7 @@ public class PlayerCharacterController : MonoBehaviour
             if(Vector3.Distance(transform.position,spawnedHookRef.position) >= hookRange)
             {
                 spawnedHookRef.GetComponent<HookHandler>().ForceStop = true;
-                RaycastHit hit;                
-                // to see if any enemy is in the radius when hook comes back
-
-                if (Physics.SphereCast(spawnedHookRef.position, 10, Vector3.zero, out hit, 1))
-                {
-                    print("enemmm");
-
-                    
-                }
+             
             }
         }
     }
@@ -93,13 +86,15 @@ public class PlayerCharacterController : MonoBehaviour
 
             if (enemyCaughtTransform != null)
             {
+
+                //Removed now
                 playerAnimator.SetTrigger("Punch");
             }
 
             if (spawnedHookRef)
             {
                 enemyCaughtTransform = other.gameObject.transform;
-                enemyCaughtTransform.parent = null;
+                enemyCaughtTransform.parent = null;             
 
                 Destroy(spawnedHookRef.gameObject);
                // spawnedHookRef.GetComponent<HookHandler>().DamageEnemy();
@@ -228,6 +223,7 @@ public class PlayerCharacterController : MonoBehaviour
         {
             enemyCaughtTransform.GetComponent<EnemyController>().EnableRagdoll(true);
             enemyCaughtTransform.GetComponent<EnemyController>().ApplyImpactForce((enemyCaughtTransform.position - transform.position).normalized);
+            enemyCaughtTransform = null;
         }
     }
 
