@@ -784,7 +784,7 @@ PlayerSettings:
     7: 
   additionalCompilerArguments: {}
   platformArchitecture:
-    iPhone: 2
+    iPhone: 1
   scriptingBackend:
     Android: 1
     Standalone: 0
