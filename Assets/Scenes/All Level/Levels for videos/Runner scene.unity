@@ -880,18 +880,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3881087803549984437, guid: ec536a7718376554185e4a856d5ae230, type: 3}
   m_PrefabInstance: {fileID: 1881505182}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1108932360
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1108932359}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96e55fa217dc6434994a60b46bb8779e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1108932361 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3881087803549984439, guid: ec536a7718376554185e4a856d5ae230, type: 3}
@@ -1182,7 +1170,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2400420224978070363, guid: 2e89f36161e8c4ca7bc6e86c53ca8afe, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -147.56
+      value: -147.55957
       objectReference: {fileID: 0}
     - target: {fileID: 2400420226220148444, guid: 2e89f36161e8c4ca7bc6e86c53ca8afe, type: 3}
       propertyPath: m_Pivot.x
@@ -1294,7 +1282,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2400420226914390365, guid: 2e89f36161e8c4ca7bc6e86c53ca8afe, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 106.9
+      value: 106.90039
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2e89f36161e8c4ca7bc6e86c53ca8afe, type: 3}
@@ -1859,7 +1847,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3881087803549984436, guid: ec536a7718376554185e4a856d5ae230, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -197.02
+      value: -197.01953
       objectReference: {fileID: 0}
     - target: {fileID: 3881087803549984436, guid: ec536a7718376554185e4a856d5ae230, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3683,7 +3671,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7878934385251638334, guid: 5fbb7dad07f3b864982dc5cd2282e3f9, type: 3}
       propertyPath: moveSpeed
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7878934385251638334, guid: 5fbb7dad07f3b864982dc5cd2282e3f9, type: 3}
       propertyPath: ridingSpeed

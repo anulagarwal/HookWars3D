@@ -898,7 +898,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5074523088247567969}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.174, y: 0.84, z: 0.54}
+  m_LocalPosition: {x: -0.174, y: 0.84, z: 0.243}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7357836948577748633}
@@ -1713,6 +1713,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
+  ridingSpeed: 0
+  hookRange: 0
   cc: {fileID: 7878934385251638305}
   playerAnimator: {fileID: 7878934385251638304}
   directionIndicator: {fileID: 6104123868355947450}
@@ -1722,6 +1724,9 @@ MonoBehaviour:
   impactForce: 80
   ragdoll: {fileID: 7967976432501079928}
   chestRb: {fileID: 1851509301}
+  hookJoystick: {fileID: 0}
+  spawnedHookRef: {fileID: 0}
+  enemyCaughtTransform: {fileID: 0}
 --- !u!114 &7878934385251638335
 MonoBehaviour:
   m_ObjectHideFlags: 0
