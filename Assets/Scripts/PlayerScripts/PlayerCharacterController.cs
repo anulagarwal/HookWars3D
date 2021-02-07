@@ -119,12 +119,12 @@ public class PlayerCharacterController : MonoBehaviour
     {
         joystickDirection = new Vector3(hookJoystick.Horizontal, 0, hookJoystick.Vertical).normalized;
 
-       // PlayerMovement();
+        PlayerMovement();
         if (joystickDirection != Vector3.zero)
         {
             //EnableDirectionIndicatorMeshRenderer(true);
             directionIndicator.rotation = Quaternion.LookRotation(joystickDirection);
-            transform.rotation = Quaternion.LookRotation(joystickDirection);
+            //transform.rotation = Quaternion.LookRotation(joystickDirection);
         }
         else
         {
@@ -166,7 +166,7 @@ public class PlayerCharacterController : MonoBehaviour
 
     private void PlayerMovement()
     {
-        print(joystickDirection);
+        /*
         if (Mathf.Abs(hookJoystick.Horizontal) > 0.3f || Mathf.Abs(hookJoystick.Vertical) > 0.3f)
         {
             cc.Move(joystickDirection * Time.deltaTime * moveSpeed);
@@ -175,7 +175,9 @@ public class PlayerCharacterController : MonoBehaviour
             {
                 playerAnimator.SetBool("Run", true);
             }
-        }
+        }*/
+        cc.Move(Vector3.forward * Time.deltaTime * moveSpeed);       
+        playerAnimator.SetBool("Run", true);        
     }
     #endregion
 

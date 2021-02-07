@@ -111,6 +111,11 @@ public class EnemyController : MonoBehaviour
         rotDirection = new Vector3(rotDirection.x, 0, rotDirection.z);
         transform.rotation = Quaternion.LookRotation(rotDirection);
     }
+
+    private void EnemyMovement()
+    {
+
+    }
     #endregion
 
     #region Public Functions
