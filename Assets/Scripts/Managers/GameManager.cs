@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
 
-    public enum State {  MainMenu, InGame, Win, Lose};
+    public enum State {  MainMenu, InGame, Win, Lose, Tutorial};
     public State currentState;
     public int currentLevel;
     private static GameManager _instance;
@@ -28,7 +28,9 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ChangeState(State.MainMenu);
+
+            ChangeState(State.MainMenu);
+
         currentLevel = PlayerPrefs.GetInt("level", 0);
         UIManager.Instance.UpdateLevelText(currentLevel);
     }

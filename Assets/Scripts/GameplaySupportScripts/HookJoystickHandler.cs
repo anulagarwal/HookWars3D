@@ -30,7 +30,10 @@ public class HookJoystickHandler : MonoBehaviour, IPointerDownHandler, IPointerU
     #region Interface Functions
     public void OnPointerDown(PointerEventData eventData)
     {
-        HookJoystickStatus = HookJoystickStatus.Active;
+        
+                HookJoystickStatus = HookJoystickStatus.Active;
+            
+        
     }
 
     public void OnPointerUp(PointerEventData eventData)

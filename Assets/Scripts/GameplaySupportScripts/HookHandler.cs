@@ -122,6 +122,11 @@ public class HookHandler : MonoBehaviour
                 PlayerCharacterController.Instance.PlayerCharacterStatus = PlayerStatus.Riding;
                 // this.enabled = false;
                 Hit = true;
+                if (TutorialManager.Instance != null)
+                    if (TutorialManager.Instance.IsTutorialOn && TutorialManager.Instance.currentIndex == 3)
+                {
+                    TutorialManager.Instance.ChangeTutorial();
+                }
             }
             else if(HookOwnerCharacter == HookOwner.Enemy)
             {

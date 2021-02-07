@@ -60,7 +60,9 @@ public class PlayerCharacterController : MonoBehaviour
             if (PlayerCharacterStatus != PlayerStatus.Riding && PlayerCharacterStatus != PlayerStatus.Throw)
             {
                 HookDirectionIndication();
-                HookThrowMechanism();
+                
+                    HookThrowMechanism();
+                
             }
             else if (PlayerCharacterStatus == PlayerStatus.Riding)
             {
@@ -119,12 +121,12 @@ public class PlayerCharacterController : MonoBehaviour
     {
         joystickDirection = new Vector3(hookJoystick.Horizontal, 0, hookJoystick.Vertical).normalized;
 
-        PlayerMovement();
+       // PlayerMovement();
         if (joystickDirection != Vector3.zero)
         {
             //EnableDirectionIndicatorMeshRenderer(true);
             directionIndicator.rotation = Quaternion.LookRotation(joystickDirection);
-            //transform.rotation = Quaternion.LookRotation(joystickDirection);
+            transform.rotation = Quaternion.LookRotation(joystickDirection);
         }
         else
         {
@@ -226,6 +228,13 @@ public class PlayerCharacterController : MonoBehaviour
             enemyCaughtTransform.GetComponent<EnemyController>().EnableRagdoll(true);
             enemyCaughtTransform.GetComponent<EnemyController>().ApplyImpactForce((enemyCaughtTransform.position - transform.position).normalized);
             enemyCaughtTransform = null;
+
+            if (TutorialManager.Instance != null)
+            {
+                if (TutorialManager.Instance.IsTutorialOn && TutorialManager.Instance.currentIndex==4) {
+                    TutorialManager.Instance.EndTutorial();
+                }
+            }
         }
     }
 

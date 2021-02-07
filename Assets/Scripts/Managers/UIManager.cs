@@ -10,6 +10,8 @@ public class UIManager : MonoBehaviour
     public GameObject InGame;
     public GameObject Win;
     public GameObject Lose;
+    public GameObject Tutorial;
+
     public GameObject awesomeText;
     public Text mainLevel;
     private static UIManager _instance;
@@ -86,6 +88,15 @@ public class UIManager : MonoBehaviour
                 InGame.SetActive(false);
                 Win.SetActive(false);
                 Lose.SetActive(true);
+                break;
+
+            case GameManager.State.Tutorial:
+
+                MainMenu.SetActive(false);
+                InGame.SetActive(true);
+                Win.SetActive(false);
+                Lose.SetActive(false);
+                Tutorial.SetActive(true);
                 break;
 
         }

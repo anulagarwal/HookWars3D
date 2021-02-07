@@ -10,13 +10,20 @@ public class SceneChanger : MonoBehaviour
     void Start()
     {
         currentLevel = PlayerPrefs.GetInt("level", 0);
-        if(currentLevel>= maximumLevels)
+        if (PlayerPrefs.GetInt("tutorial", 0) == 0)
         {
-            SceneManager.LoadScene("Prototype " + (Random.Range(0, maximumLevels)+1));
+            SceneManager.LoadScene("Tutorial");
         }
         else
         {
-            SceneManager.LoadScene("Level " + (currentLevel +1 ));
+            if (currentLevel >= maximumLevels)
+            {
+                SceneManager.LoadScene("Level " + (Random.Range(0, maximumLevels) + 1));
+            }
+            else
+            {
+                SceneManager.LoadScene("Level " + (currentLevel + 1));
+            }
         }
     }
 
